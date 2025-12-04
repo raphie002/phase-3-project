@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# reset.sh
 
 echo "🔥 Resetting database..."
 

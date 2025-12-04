@@ -6,7 +6,7 @@ from lib.database import session
 from lib.models import Student, Instructor, Course, Grade, Attendance
 
 
-# 1. CLEAR TABLES (safe for development)
+# 1. CLEAR ALL TABLES (safe for development)
 def clear_tables():
     session.query(Attendance).delete()
     session.query(Grade).delete()
@@ -17,7 +17,7 @@ def clear_tables():
     print("✔ Tables cleared")
 
 
-# 2. SEED HELPERS
+# 2. STUDENTS
 def create_students():
     students = [
         Student(name="John Mwangi", age=20, department="Computer Science"),
@@ -31,6 +31,7 @@ def create_students():
     return students
 
 
+# 3. INSTRUCTORS
 def create_instructors():
     instructors = [
         Instructor(name="Dr. Kamau", department="Computer Science"),
@@ -43,11 +44,12 @@ def create_instructors():
     return instructors
 
 
+# 4. COURSES
 def create_courses():
     courses = [
         Course(name="Advanced Calculus", code="MA202", description="Second year calculus."),
-        Course(name="Data Structures", code="CS102", description="Introduction to DS."),
-        Course(name="Thermodynamics", code="EN105", description="Basic Engineering Thermodynamics."),
+        Course(name="Data Structures", code="CS102", description="Introduction to data structures."),
+        Course(name="Thermodynamics", code="EN105", description="Basic engineering thermodynamics."),
         Course(name="Discrete Mathematics", code="CS110", description="Logic and proofs."),
     ]
     session.add_all(courses)
@@ -56,7 +58,7 @@ def create_courses():
     return courses
 
 
-# 3. RANDOM GRADE GENERATOR
+# 5. GRADE HELPER
 def generate_letter(score: float):
     if score >= 80: return "A"
     if score >= 70: return "B"
@@ -71,14 +73,12 @@ def create_grades(students, courses):
     for student in students:
         for course in courses:
             score = random.uniform(40, 95)
-            letter = generate_letter(score)
-
             grade_entries.append(
                 Grade(
                     student_id=student.id,
                     course_id=course.id,
                     score=round(score, 2),
-                    letter=letter
+                    letter=generate_letter(score)
                 )
             )
 
@@ -87,25 +87,22 @@ def create_grades(students, courses):
     print("✔ Grades generated")
 
 
-# 4. RANDOM ATTENDANCE GENERATOR
+# 6. ATTENDANCE GENERATOR
 def create_attendance(students, courses):
     attendance_entries = []
     start_date = date(2025, 1, 1)
 
-    # Generate 20 days of attendance
     for day_offset in range(20):
         current = start_date + timedelta(days=day_offset)
 
         for student in students:
             for course in courses:
-                status = random.choice(["Present", "Absent", "Late"])
-
                 attendance_entries.append(
                     Attendance(
                         student_id=student.id,
                         course_id=course.id,
                         date=current,
-                        status=status
+                        status=random.choice(["Present", "Absent", "Late"])
                     )
                 )
 
@@ -114,7 +111,7 @@ def create_attendance(students, courses):
     print("✔ Attendance generated")
 
 
-# 5. RUN SEEDING
+# 7. RUN SEEDER
 if __name__ == "__main__":
     clear_tables()
 

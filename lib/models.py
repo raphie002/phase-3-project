@@ -1,4 +1,4 @@
-
+# lib/models.py
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey # type: ignore
 from sqlalchemy.orm import relationship, declarative_base # type: ignore
 

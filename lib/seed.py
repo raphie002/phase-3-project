@@ -6,7 +6,6 @@ from lib.database import session
 from lib.models import Student, Instructor, Course, Grade, Attendance
 
 
-# 1. CLEAR ALL TABLES (safe for development)
 def clear_tables():
     session.query(Attendance).delete()
     session.query(Grade).delete()
@@ -17,7 +16,6 @@ def clear_tables():
     print("✔ Tables cleared")
 
 
-# 2. STUDENTS
 def create_students():
     students = [
         Student(name="John Mwangi", age=20, department="Computer Science"),
@@ -31,7 +29,6 @@ def create_students():
     return students
 
 
-# 3. INSTRUCTORS
 def create_instructors():
     instructors = [
         Instructor(name="Dr. Kamau", department="Computer Science"),
@@ -44,7 +41,6 @@ def create_instructors():
     return instructors
 
 
-# 4. COURSES
 def create_courses():
     courses = [
         Course(name="Advanced Calculus", code="MA202", description="Second year calculus."),
@@ -58,7 +54,6 @@ def create_courses():
     return courses
 
 
-# 5. GRADE HELPER
 def generate_letter(score: float):
     if score >= 80: return "A"
     if score >= 70: return "B"
@@ -87,7 +82,6 @@ def create_grades(students, courses):
     print("✔ Grades generated")
 
 
-# 6. ATTENDANCE GENERATOR
 def create_attendance(students, courses):
     attendance_entries = []
     start_date = date(2025, 1, 1)
@@ -111,7 +105,6 @@ def create_attendance(students, courses):
     print("✔ Attendance generated")
 
 
-# 7. RUN SEEDER
 if __name__ == "__main__":
     clear_tables()
 

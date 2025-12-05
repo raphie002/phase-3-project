@@ -14,7 +14,6 @@ class Student(Base):
     age = Column(Integer)
     department = Column(String(100))
 
-    # Relationships
     grades = relationship("Grade", back_populates="student", cascade="all, delete-orphan")
     attendance_records = relationship("Attendance", back_populates="student", cascade="all, delete-orphan")
 
@@ -43,7 +42,6 @@ class Course(Base):
     code = Column(String(20), nullable=False, unique=True)
     description = Column(String(255))
 
-    # Relationships
     grades = relationship("Grade", back_populates="course", cascade="all, delete-orphan")
     attendance_records = relationship("Attendance", back_populates="course", cascade="all, delete-orphan")
 
